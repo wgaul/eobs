@@ -3,7 +3,7 @@
 ## 
 ## inputs: eobs.Rdata - data prepared by Jon Yearsley and shared in the 
 ##            Grassland dropbox folder, summer 2017
-## outpus: individual climate variables at the location and scale of 
+## outputs: individual climate variables at the location and scale of 
 ##            Irish hectads
 ## 
 ## author: Willson Gaul
@@ -23,8 +23,6 @@ rm(list = ls())
 load("../../data/eobs.RData")
 
 ## Status
-# I think I have things working now so that I can both map and get a df of the results I want at the hectad level.  Now starting to delete all the stuff in the script that didn't work...
-# 
 # This now can produce the result format I want.  Next step is to figure out exactly what I want.  Interpolate for ever day so I can match observations to variable values?  Average values by week or month?
 
 ## ----------------------- load coastline for masking -------------------------
@@ -33,7 +31,7 @@ ir <- readOGR(dsn='../../mapping/data/', layer='ireland_coastline')
 ir_TM75 <- spTransform(ir, CRS("+init=epsg:29903"))
 
 ### ----------------- prepare hectad raster -----------------------------------
-# rasterize the hectad shapefile
+# rasterize the hectad shapefile so that I can predict to it later
 src_filename <- "../../qgis/find_IE_hectads/data/IE_10km_hecs.shp"
 dst_filename <- "IE_10km_hecs_raster.tif"
 irish_hec_raster <- gdalUtils::gdal_rasterize(src_filename, 
@@ -80,7 +78,7 @@ points(v[, 2:3], pch = 20, col = 'red')
 krg <- gstat(formula = tg~1, data = jan1, model = f_var)
 
 krg_predict <- predict(krg, irish_spat_grid)
-spplot(krg_predict)
+#spplot(krg_predict)
 
 ## krg_predict has the results I want
 krg_rast <- raster::raster(krg_predict)
