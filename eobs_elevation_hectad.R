@@ -12,7 +12,7 @@
 ##              land and data.  So this will need to be subset in scripts that
 ##              use it for analysis.
 ##              
-## NOTES: This drastically under estimates elevations of peaks, probably because 
+## NOTES: This drastically under estimates elevations of peaks, probably because
 ## those areas don't stay high over the large area that eobs elevation data
 ## is recorded at.  I think the eobs elevation data came from some USGS source,
 ## which might have finer resolution, so I should probably see if I can 
@@ -21,7 +21,7 @@
 ## 
 ## author: Willson Gaul
 ## created: 25 Sep 2017
-## last modified: 6 Nov 2017
+## last modified: 8 Nov 2017
 #################################### 
 
 setwd("~/Documents/Data_Analysis/UCD/predictor_variables/eobs")
@@ -73,7 +73,7 @@ dimnames(spat_eobs@coords)[[2]][which(
 
 ## -------------------------- end coordinate conversion ------------------------
 
-## ------------------------- interpolate kriggin ------------------------------
+## ----------------------- interpolate by krigging ----------------------------
 # I want to interpolate data in spat_eobs to the raster grid irish_hec_raster
 # following this: http://rspatial.org/analysis/rst/4-interpolation.html
 irish_spat_grid <- as(irish_hec_raster, 'SpatialGrid')
@@ -208,6 +208,10 @@ if(do_linear == T){
   # nearest neighbor linear method
   plot(mask(krg_elev_rast, ir_TM75), main = "krig")
   plot(nn_raster, main = "linear")
-  plot(mask(krg_elev_rast, ir_TM75) - nn_raster)
+  plot(mask(krg_elev_rast, ir_TM75) - nn_raster, 
+       main = "Difference b/t krig and linear")
   
 } # end if(do_linear)
+
+## save results ---------------------------------------------------------------
+save(krg_elev_predict, file = "elevation_hec.RData")
