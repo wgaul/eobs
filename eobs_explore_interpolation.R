@@ -1,6 +1,9 @@
 ###################################
 ## Interpolate E-OBS climate data (1995-2016) to Irish hectad scale
 ## 
+## This is an exploratory script, trying to figure out how to summarize 
+## the E-OBS data at different temporal scales before interpolating.
+## 
 ## inputs: eobs.Rdata - data prepared by Jon Yearsley and shared in the 
 ##            Grassland dropbox folder, summer 2017
 ## outputs: individual climate variables at the location and scale of 
