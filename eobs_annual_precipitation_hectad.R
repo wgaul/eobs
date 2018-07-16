@@ -1,8 +1,11 @@
 ###################################
 ## Interpolate E-OBS total annual precipitation (1995-2016) to Irish hectad scale
 ## 
-## inputs: eobs.RData - data prepared by Jon Yearsley and shared in the 
+## inputs:  * eobs.RData - data prepared by Jon Yearsley and shared in the 
 ##            Grassland dropbox folder, summer 2017
+##          * ireland_coastline shapefile (I got this from Jon Yearsley but I
+##                think it might be a naturalEarth file originally)
+##          * IE_10km_hecs.shp shapefile of Irish hectads created in QGIS by wg
 ## outputs: krg_mean_rr_predict - a spatialGridDataFrame holding interpolated
 ##          values of mean annual precipitation over the years 1995-2016 
 ##          (excluding 2010-2012) at the hectad scale.  

@@ -2,8 +2,11 @@
 ## Interpolate E-OBS mean daily average sea level pressure 
 ## (units = hecto Pascals) to Irish hectad scale
 ## 
-## inputs: eobs.RData - data prepared by Jon Yearsley and shared in the 
+## inputs:  * eobs.RData - data prepared by Jon Yearsley and shared in the 
 ##            Grassland dropbox folder, summer 2017
+##          * ireland_coastline shapefile (I got this from Jon Yearsley but I
+##                think it might be a naturalEarth file originally)
+##          * IE_10km_hecs.shp shapefile of Irish hectads created in QGIS by wg
 ## outputs: krg_mean_pp - a spatialGridDataFrame holding 
 ##          interpolated values of 98th quantile of maximum summer temperature 
 ##          over the years 1995-2016 at the hectad scale.  
