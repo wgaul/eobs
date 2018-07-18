@@ -255,9 +255,25 @@ if(view_precip_nas == T) {
     print(unique(nas$location)[i])
     print(table(nas$year[nas$location == unique(nas$location)[i]]))
   }
+  ## ------------------ convert eobs lat/long to OSI east/north ----------------
+  ## yearly
+  # make precipitation summaries into spatial data frames for interpolation
+  spat_eobs <- nas[, 3:ncol(nas)] 
+  coordinates(spat_eobs) <- as.matrix(nas[, 1:2])
+  # set proj4string based on WGS84 here: http://spatialreference.org/ref/epsg/4326/
+  proj4string(spat_eobs) <- CRS(
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+  
+  # convert lat/long to OSI east/north
+  spat_eobs <- spTransform(spat_eobs, CRS("+init=epsg:29903"))
+  dimnames(spat_eobs@coords)[[2]][which(
+    dimnames(spat_eobs@coords)[[2]] == "longitude")] <- "eastings"
+  dimnames(spat_eobs@coords)[[2]][which(
+    dimnames(spat_eobs@coords)[[2]] == "latitude")] <- "northings"
   
   plot(ir_TM75)
-  plot(spat_eobs[, ], add = T)
+  plot(spat_eobs[, ], add = T) # plot hectads with NA values
+  # look at individual hectads based on locations in 'nas'
   plot(spat_eobs[which(spat_eobs$location == "51.875-8.125"), ], col = "red", 
        add = T)
   plot(spat_eobs[which(spat_eobs$location == "51.875-8.375"), ], col = "red", 
